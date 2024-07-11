@@ -29,7 +29,7 @@ const Navbar = () => {
 
     return (
        <>
-            <AppBar position="static" sx={{ backgroundColor: "black" }}>
+            <AppBar position="sticky" sx={{ backgroundColor: "black", top: 0 }}>
                 <Toolbar>
                     <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
@@ -37,8 +37,7 @@ const Navbar = () => {
                         </Typography>
                     </Link>
 
-
-                    <div style={{ flex: 1, textAlign: 'center', marginLeft:4 }}>
+                    <div style={{ flex: 1, textAlign: 'center', marginLeft: 4 }}>
                         <SearchBar />
                     </div>
                     <div>
