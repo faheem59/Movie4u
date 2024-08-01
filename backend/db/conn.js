@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const serverConfig = require('../config/server-config');
 
 
 const connectToDB = async () => {
     try {
-        await mongoose.connect('mongodb://localhost:27017/Movie', {
+        await mongoose.connect(serverConfig.MONGO_URI, {
         });
         console.log('Connected to MongoDB');
         return mongoose;

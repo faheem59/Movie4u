@@ -1,81 +1,57 @@
 const User = require('../models/Users');
 const sendToken = require('../utils/jwtToken');
+const message = require('../utils/message');
+const respondWithStatus = require('../utils/responseStatus'); 
+const validateUser = require('../validation/userValidation');
 
-exports.register = async(req,res) => {
+exports.register = async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        const validationResult = validateUser({ name, email, password });
 
+        if (validationResult !== true) {
+            return respondWithStatus(res, 400, message.error.validationError, { details: validationResult });
+        }
         const existUser = await User.findOne({ email });
         if (existUser) {
-            res.status(400).json('email is already exists')
+            return respondWithStatus(res, 400, message.error.userInUse);
         }
-        const newUser = new User({ name, email, password});
+
+        const newUser = new User({ name, email, password });
         const user = await newUser.save();
         sendToken(user, 201, res);
     } catch (e) {
         console.log(e);
-        res.status(500).json({ message: "Server error" }); 
+        respondWithStatus(res, 500, message.error.internalError);
     }
-
 }
 
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
-
+    
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: "No user found" });
+            return respondWithStatus(res, 400, message.error.userNotFound);
         }
-        
+
         const isMatched = await user.comparePassword(password);
         if (!isMatched) {
-            return res.status(400).json({ message: "Invalid email or password" });
+            return respondWithStatus(res, 400, message.error.invalidCredentials);
         }
-        const token = user.getJwtToken();
-        console.log(token);
-        sendToken(user, 200, res);
 
+        sendToken(user, 200, res);
     } catch (error) {
-        console.error("Login error:", error);
-        res.status(500).json({ message: "Server error" });
+        console.error('Login error:', error);
+        respondWithStatus(res, 500, message.error.internalError);
     }
 };
-exports.getDetails = async(req,res) => {
-    try {
-        const allUser = await User.find();
-        res.status(202).json(allUser);
-    } catch (e) {
-        console.log(e);
-    }
-} 
 
-exports.getuserDetails = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const user = await User.findById(id);
-
-        if (!user) {
-            return res.status(404).json({ message: "User Not Found" });
-        }
-
-        res.status(200).json(user);
-    } catch (e) {
-        console.log(e);
-    }
-}
-
-
-
-exports.logout = async (req,res, next) => {
-    res.cookie("token", null, {
+exports.logout = async (req, res) => {
+    res.cookie('token', null, {
         expires: new Date(Date.now()),
         httpOnly: true,
     });
 
-    res.status(200).json({
-        success: true,
-        message: "Logged Out",
-    });
+    respondWithStatus(res, 200, message.success.logoutSuccessful);
 }

@@ -17,7 +17,7 @@ import { UnknownAction } from '@reduxjs/toolkit';
 
 const FavoritesPage = () => {
     const dispatch = useDispatch();
-    const currentUser = useSelector((state: RootState) => state.auth.currentUser);
+    //const currentUser = useSelector((state: RootState) => state.auth.currentUser);
     const favorites = useSelector((state: RootState) => state.auth.favorites);
     const [showLoader, setShowLoader] = useState(true);
 
@@ -38,9 +38,9 @@ const FavoritesPage = () => {
         dispatch(removeFromFavorites(movie.imdbID) as unknown as UnknownAction);
     };
 
-    useEffect(() => {
-        console.log('Updated Current User:', currentUser);
-    }, [currentUser]);
+    // useEffect(() => {
+    //     console.log('Updated Current User:', currentUser);
+    // }, [currentUser]);
 
     if (showLoader) {
         return <Loader />;

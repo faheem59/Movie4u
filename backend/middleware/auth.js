@@ -1,7 +1,8 @@
 const jwt = require('jsonwebtoken');
 const catchAsyncError = require('./catchAsyncError');
 const User = require('../models/Users');
-const secret = 'Raj123';
+const serverConfig = require('../config/server-config');
+const secret = serverConfig.JWT_SECRET
 
 exports.isAuthenticated = catchAsyncError(async (req, res, next) => {
     // console.log('Request Headers:', req.headers);

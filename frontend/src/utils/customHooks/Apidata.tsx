@@ -11,8 +11,7 @@ const useApiData = () => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:5000/api/movie');
-                setDataFromApi(response.data); 
-                console.log(response.data,"djfdfjdfjdjdf")
+                setDataFromApi(response.data.movies); 
             } catch (error) {
                 setError('Failed to fetch data');
             } finally {

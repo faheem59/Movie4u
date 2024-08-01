@@ -1,23 +1,24 @@
-const Comment = require('../models/Comments'); 
-const User = require('../models/Users');      
-const Movie = require('../models/Movies');     
+const Comment = require('../models/Comments');
+const User = require('../models/Users');
+const Movie = require('../models/Movies');
+const respondWithStatus = require('../utils/responseStatus');
+const message = require('../utils/message');
 
 exports.addComment = async (req, res) => {
     try {
-        const { imdbID } = req.query
-        const {comment, rating} = req.body
+        const { imdbID } = req.query;
+        const { comment, rating } = req.body;
         const userId = req.user.id;
-       
 
-        const movie = await Movie.findOne({ imdbID: imdbID }); 
-     
+        const movie = await Movie.findOne({ imdbID: imdbID });
+
         if (!movie) {
-            return res.status(404).json({ message: 'Movie not found' });
+            return respondWithStatus(res, 404, message.error.movieNotFound);
         }
 
         const user = await User.findById(userId);
         if (!user) {
-            return res.status(404).json({ message: 'User not found' });
+            return respondWithStatus(res, 404, message.error.userNotFound);
         }
 
         const newComment = {
@@ -33,8 +34,7 @@ exports.addComment = async (req, res) => {
         }
 
         commentDoc.comments.push(newComment);
-
-         await commentDoc.save();
+        await commentDoc.save();
 
         const populatedCommentDoc = await Comment.findById(commentDoc._id)
             .populate({
@@ -47,16 +47,11 @@ exports.addComment = async (req, res) => {
             })
             .exec();
 
-       
-        // const addedComment = populatedCommentDoc.comments.find(c => c._id === newComment._id);
-
-        res.status(201).json({ message: 'Comment added successfully', populatedCommentDoc });
+        respondWithStatus(res, 201, message.success.commnetAddSuccess, { populatedCommentDoc });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error: error.message });
+        respondWithStatus(res, 500, message.error.internalError);
     }
 };
-
-
 
 exports.getAllComments = async (req, res) => {
     try {
@@ -71,8 +66,8 @@ exports.getAllComments = async (req, res) => {
             })
             .exec();
 
-        res.status(200).json({ comments });
+        respondWithStatus(res, 200, message.success.getAllcommnet, { comments });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error', error: error.message });
+        respondWithStatus(res, 500, message.error.internalError);
     }
 };

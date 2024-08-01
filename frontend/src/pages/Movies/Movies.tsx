@@ -9,6 +9,7 @@ import { initializeAuth } from '../../utils/initializeAuth';
 
 const Movies: React.FC = () => {
     const { data, error } = useApiData();
+    
     const [showLoader, setShowLoader] = useState(true);
 
     initializeAuth();

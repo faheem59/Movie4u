@@ -7,7 +7,8 @@ const connectToDB = require("./db/conn")
 const user = require("./routes/user");
 const cookieParser = require('cookie-parser')
 const favorite = require('./routes/favorite')
-const comment = require('./routes/comment')
+const comment = require('./routes/comment');
+const serverConfig = require('./config/server-config');
 
 connectToDB();
 app.use(bodyParser.json());
@@ -23,8 +24,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.listen(port, () => {
-    console.log(`Server is runnig ${port}`);
+app.listen(serverConfig.PORT, () => {
+    console.log(`Server is runnig ${serverConfig.PORT}`);
 })
 
 

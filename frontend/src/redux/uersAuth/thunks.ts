@@ -90,7 +90,6 @@ export const addComment = createAsyncThunk<UserData, CommentData, { state: RootS
                         withCredentials: true
                     }
                 );
-                console.log(response.data, "comment")
                 return response.data;
             } catch (error) {
                 

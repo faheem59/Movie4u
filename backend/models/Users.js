@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const secret = 'Raj123';
+const serverConfig = require("../config/server-config");
+const secret = serverConfig.JWT_SECRET
 const userSchema = mongoose.Schema({
     name: {
         type: String,
