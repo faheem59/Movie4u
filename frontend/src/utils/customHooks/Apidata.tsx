@@ -10,7 +10,7 @@ const useApiData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/movie');
+                const response = await axios.get('https://movie4u-backend.onrender.com');
                 setDataFromApi(response.data.movies); 
             } catch (error) {
                 setError('Failed to fetch data');
