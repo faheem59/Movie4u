@@ -20,7 +20,7 @@ export interface UserData {
     password: string;
     favorites?: Movie[];
     comments?: { imdbID: string, user: string; comment: string, rating?: number }[];
-    token?: string
+    token?:string
     user?: {
         id?: string;
         name: string;

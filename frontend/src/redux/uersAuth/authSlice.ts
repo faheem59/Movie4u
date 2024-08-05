@@ -113,7 +113,7 @@ import { UserData, Movie } from '../../utils/interface/types';
 import { addToFavorites, removeFromFavorites, addComment, fetchFavorites } from './thunks';
 
 interface AuthState {
-    currentUser: UserData | null | { token: string };
+    currentUser: UserData | null;
     favorites: Movie[];
     comments: Record<string, any>; 
     status: 'idle' | 'loading' | 'succeeded' | 'failed';
@@ -121,7 +121,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-    currentUser: { token: '' },
+    currentUser: null as UserData | null,
     favorites: [],
     comments: {},
     status: 'idle',
@@ -132,9 +132,9 @@ const authSlice = createSlice({
     name: 'auth',
     initialState,
     reducers: {
-        setToken(state, action: PayloadAction<string>) {
-            state.currentUser = { token: action.payload };
-        },
+        // setToken(state, action: PayloadAction<string>) {
+        //     state.currentUser = { token: action.payload };
+        // },
         setMovie(state, action: PayloadAction<Movie[]>) {
             state.favorites = action.payload;
         },
@@ -206,5 +206,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { setMovie, removeMovie, logout, loginSuccess,loginFailure, setToken } = authSlice.actions;
+export const { setMovie, removeMovie, logout, loginSuccess,loginFailure,  } = authSlice.actions;
 export default authSlice.reducer;
