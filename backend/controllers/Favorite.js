@@ -14,7 +14,7 @@ exports.addFavorite = async (req, res) => {
             return respondWithStatus(res, 404, message.error.movieNotFound);
         }
 
-        const movieId = movie._id;
+        // const movieId = movie._id;
         const user = await User.findById(userId);
         if (!user) {
             return respondWithStatus(res, 404, message.error.userNotFound);
