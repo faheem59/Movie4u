@@ -13,7 +13,7 @@ const serverConfig = require('./config/server-config');
 connectToDB();
 app.use(bodyParser.json());
 app.use(cors({
-    origin: ['https://movie4u-cufp.onrender.com', 'http://localhost:5173'], // Accepts any origin (for testing purposes)
+    origin: true, // Accepts any origin (for testing purposes)
     credentials: true 
 }));
 app.use(cookieParser());
