@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Typography from "@mui/material/Typography";
 import { useDispatch } from 'react-redux';
-import { loginFailure, loginSuccess, setToken, } from '../../redux/uersAuth/authSlice'; 
+import { loginFailure, loginSuccess, } from '../../redux/uersAuth/authSlice'; 
 import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import CommonButton from '../../components/commonComponet/CommonButton';
@@ -31,7 +31,7 @@ const Login = () => {
             const authenticatedUser: UserData = response.data;
             const token = response.data.token; 
             if (token) {
-                dispatch(setToken(token));
+                // dispatch(setToken(token));
             
                 localStorage.setItem('authToken', token);
             }
