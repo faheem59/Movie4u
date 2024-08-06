@@ -1,6 +1,7 @@
 const Movie = require("../models/Movies");
 const User = require("../models/Users");
 const message = require("../utils/message");
+const { getCache, setCache } = require("../utils/redis");
 const respondWithStatus = require("../utils/responseStatus");
 
 exports.addFavorite = async (req, res) => {
@@ -92,9 +93,17 @@ exports.getAllFavorites = async (req, res) => {
 };
 
 exports.getAllMovies = async (req, res) => {
+    const cacheKey = 'allMovies';
     try {
-        const movies = await Movie.find();
-        respondWithStatus(res, 200, {message:message.success.fetchFavMovie}, { movies });
+        const cachedMovies = await getCache(cacheKey);
+        if (cachedMovies) {
+            respondWithStatus(res, 200, { message: message.success.fetchFavMovie }, { movies: cachedMovies });
+        } else {
+            const movies = await Movie.find();
+            await setCache(cacheKey, movies);
+
+            respondWithStatus(res, 200, { message: message.success.fetchFavMovie }, { movies });
+        }
     } catch (error) {
         respondWithStatus(res, 500, message.error.internalError);
     }
