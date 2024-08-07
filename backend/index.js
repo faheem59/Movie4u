@@ -14,6 +14,8 @@ connectToDB();
 app.use(bodyParser.json());
 app.use(cors({
     origin: ['https://movie4u-backend.onrender.com', 'http://localhost:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
 }));
 app.use(cookieParser());
