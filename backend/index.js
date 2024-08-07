@@ -13,8 +13,8 @@ const serverConfig = require('./config/server-config');
 connectToDB();
 app.use(bodyParser.json());
 app.use(cors({
-    origin: true, // Accepts any origin (for testing purposes)
-    credentials: true 
+    origin: ['https://movie4u-backend.onrender.com', 'http://localhost:5173'],
+    credentials: true
 }));
 app.use(cookieParser());
 app.use('/api', user);
