@@ -113,6 +113,7 @@ export const fetchFavorites = createAsyncThunk<UserData, void, { state: RootStat
 
         try {
             const response = await axios.get('https://movie4u-mo.onrender.com/api/favorites', {
+                withCredentials:true,
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

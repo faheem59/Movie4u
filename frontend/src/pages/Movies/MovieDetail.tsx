@@ -43,7 +43,11 @@ const MovieDetail = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('https://movie4u-mo.onrender.com/api/comment');
+                const response = await axios.get('https://movie4u-mo.onrender.com/api/comment',
+                    {
+                        withCredentials:true,
+                    }
+                );
                 const allComments = response.data.comments[0].comments;
                 const filteredComments = allComments.filter((comment: Comment) => comment.movie === imdbID);
                 setComments(filteredComments);
