@@ -16,7 +16,7 @@ app.use(cors({
     origin: ['https://movie4u-mo.onrender.com', 'http://localhost:5173'],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true
+    credentials: true,
 }));
 app.use(cookieParser());
 app.use('/api', user);
