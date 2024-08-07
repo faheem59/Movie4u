@@ -91,19 +91,10 @@ exports.getAllFavorites = async (req, res) => {
         respondWithStatus(res, 500, message.error.internalError);
     }
 };
-
 exports.getAllMovies = async (req, res) => {
-    const cacheKey = 'allMovies';
     try {
-        const cachedMovies = await getCache(cacheKey);
-        if (cachedMovies) {
-            respondWithStatus(res, 200, { message: message.success.fetchFavMovie }, { movies: cachedMovies });
-        } else {
-            const movies = await Movie.find();
-            await setCache(cacheKey, movies);
-
-            respondWithStatus(res, 200, { message: message.success.fetchFavMovie }, { movies });
-        }
+        const movies = await Movie.find();
+        respondWithStatus(res, 200, { message: message.success.fetchFavMovie }, { movies });
     } catch (error) {
         respondWithStatus(res, 500, message.error.internalError);
     }
