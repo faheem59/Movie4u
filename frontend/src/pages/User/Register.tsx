@@ -16,7 +16,7 @@ const Register = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/register', data, {
+            const response = await axios.post('https://movie4u-mo.onrender.com/api/register', data, {
                 withCredentials: true,
             });
 

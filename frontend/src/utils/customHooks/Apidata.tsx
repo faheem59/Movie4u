@@ -10,7 +10,7 @@ const useApiData = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('https://movie4u-backend.onrender.com/api/movie',
+                const response = await axios.get('https://movie4u-mo.onrender.com/api/movie',
                     {
                         withCredentials: true
                     }

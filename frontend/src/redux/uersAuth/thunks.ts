@@ -23,7 +23,7 @@ export const addToFavorites = createAsyncThunk<UserData, Movie, { state: RootSta
             const currentFavorites = state.auth.favorites ?? [];
             dispatch(setMovie([...currentFavorites, movie]));
 
-            const response = await axios.post('http://localhost:5000/api/favorites/add', null, {
+            const response = await axios.post('https://movie4u-mo.onrender.com/api/favorites/add', null, {
                 params: { imdbID: movie.imdbID },
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true
@@ -50,7 +50,7 @@ export const removeFromFavorites = createAsyncThunk<string, string, { state: Roo
 
         try {
             dispatch(removeMovie(imdbID));
-            await axios.delete('http://localhost:5000/api/favorites/remove', {
+            await axios.delete('https://movie4u-mo.onrender.com/api/favorites/remove', {
                 params: { imdbID },
                 headers: { Authorization: `Bearer ${token}` },
                 withCredentials: true
@@ -79,7 +79,7 @@ export const addComment = createAsyncThunk<UserData, CommentData, { state: RootS
         if (user) {
             try {
                 const response = await axios.post(
-                    `http://localhost:5000/api/comment?imdbID=${commentData.movieId}`,
+                    `https://movie4u-mo.onrender.com/api/comment?imdbID=${commentData.movieId}`,
                     {
                         comment: commentData.comment,
                         rating: commentData.rating,
@@ -112,7 +112,7 @@ export const fetchFavorites = createAsyncThunk<UserData, void, { state: RootStat
         }
 
         try {
-            const response = await axios.get('http://localhost:5000/api/favorites', {
+            const response = await axios.get('https://movie4u-mo.onrender.com/api/favorites', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

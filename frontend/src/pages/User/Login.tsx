@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Typography from "@mui/material/Typography";
 import { useDispatch } from 'react-redux';
-import { loginFailure, loginSuccess, } from '../../redux/uersAuth/authSlice'; 
+import { loginFailure, loginSuccess, } from '../../redux/uersAuth/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import CommonButton from '../../components/commonComponet/CommonButton';
-import axios from 'axios'; 
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { loginSchema } from '../../utils/schema/loginSignupSchema';
 import { LoginFormData, UserData } from '../../utils/interface/types';
@@ -25,14 +25,14 @@ const Login = () => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:5000/api/login', data, {
+            const response = await axios.post('https://movie4u-mo.onrender.com/api/login', data, {
                 withCredentials: true,
             });
             const authenticatedUser: UserData = response.data;
-            const token = response.data.token; 
+            const token = response.data.token;
             if (token) {
                 // dispatch(setToken(token));
-            
+
                 localStorage.setItem('authToken', token);
             }
             if (authenticatedUser) {

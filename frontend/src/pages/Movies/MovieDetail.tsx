@@ -43,9 +43,9 @@ const MovieDetail = () => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/comment');
+                const response = await axios.get('https://movie4u-mo.onrender.com/api/comment');
                 const allComments = response.data.comments[0].comments;
-                const filteredComments = allComments.filter((comment:Comment) => comment.movie === imdbID);
+                const filteredComments = allComments.filter((comment: Comment) => comment.movie === imdbID);
                 setComments(filteredComments);
             } catch (error) {
                 console.error('Error fetching comments:', error);
