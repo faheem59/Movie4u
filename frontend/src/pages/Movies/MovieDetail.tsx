@@ -45,11 +45,12 @@ const MovieDetail = () => {
             try {
                 const response = await axios.get('https://movie4u-mo.onrender.com/api/comment',
                     {
-                        withCredentials:true,
+                        withCredentials: true,
                     }
                 );
                 const allComments = response.data.comments[0].comments;
                 const filteredComments = allComments.filter((comment: Comment) => comment.movie === imdbID);
+                setChanged(prev => prev + 1)
                 setComments(filteredComments);
             } catch (error) {
                 console.error('Error fetching comments:', error);
